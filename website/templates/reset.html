@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <!-- basic -->
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <!-- mobile metas -->
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+      <!-- site metas -->
+      <title>Wise Wallet-Reset page</title>
+      <meta name="keywords" content="">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <!-- bootstrap css -->
+      <link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap.min.css')}}">
+      <!-- style css -->
+      <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+      <!-- Responsive-->
+      <link rel="stylesheet" href="{{url_for('static',filename='css/responsive.css')}}">
+      <!-- fevicon -->
+      <link rel="icon" href="{{url_for('static',filename='images/favicon.ico')}}" type="image/x-icon" />
+      <!-- Scrollbar Custom CSS -->
+      <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
+      <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+      <!--other css-->
+         <link rel="preconnect" href="https://fonts.googleapis.com">
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+        <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;700&display=swap" rel="stylesheet">
+
+       
+
+        <link type="text/css" href="{{url_for ('static',filename='bootstrap-icons.css')}}" rel="stylesheet">
+
+        <link type="text/css" href="{{url_for ('static',filename='tooplate-mini-finance.css')}}" rel="stylesheet">
+                   <!-- [ LOADERs ]
+================================================================================================================================-->	
+<div class="preloader">
+    <div class="loader theme_background_color">
+        <span></span>
+      
+    </div>
+</div>
+<!-- [ /PRELOADER ]
+=============================================================================================================================-->
+   </head>
+   <!-- body -->
+   <body class="main-layout">
+      <!-- header -->
+      <header>
+         <!-- header inner -->
+         <div class="header">
+            <div class="white_bg">
+               <div class="container-fluid">
+                  <div class="row">
+                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
+                        <div class="full">
+                           <div class="center-desk">
+                        
+                                 <a href="{{url_for('views.home')}}"><img src="{{url_for('static',filename='images/logo.jpg')}}" alt="#" /></a>
+                              
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
+                        <nav class="navigation navbar navbar-expand-md navbar-dark ">
+                           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+                           <span class="navbar-toggler-icon"></span>
+                           </button>
+                           <div class="collapse navbar-collapse" id="navbarsExample04">
+                              <ul class="navbar-nav mr-auto">
+                            
+                              </ul>
+                           </div>
+                        </nav>
+                     </div>
+                  </div>
+               </div>
+               <!-- end header inner -->
+               <!-- end header -->
+               <!-- banner -->
+               <section class="banner_main" style="padding-top:0px">
+                  <div id="banner1" class="carousel slide" data-ride="carousel">
+                     <ol class="carousel-indicators">
+                        <li data-target="#banner1" data-slide-to="0" class="active"></li>
+                     </ol>
+                     <div class="carousel-inner">
+                        <div class="carousel-item active">
+                           <div class="container-fluid">
+                              {% with messages = get_flashed_messages(with_categories=true) %} {% if
+                                 messages %} {% for category, message in messages %} {% if category ==
+                                 'error' %}
+                                 
+                                 
+                                 <div id="messageDiv" class="alert alert-danger alert-dismissible fade show" role="alert">
+                                     {{ message }}
+                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                 </div>
+                                 
+                                 {% else %}
+                                 <div id="messageDiv" class="alert alert-success alert-dismissible fade show" role="alert">
+                                     {{ message }}
+                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                 </div>
+                         
+                             {% endif %} {% endfor %} {% endif %} {% endwith %}
+                              <div class="carousel-caption">
+                                 <div class="row">
+                                    <div class="col-md-12 col-lg-7">
+                                       <div class="text-bg">
+                                          <span>Reset Password</span>
+                                         <!-- <h5 class="mb-4">Login</h5>-->
+                                         <form class="custom-form password-form" action="#" method="post" role="form">
+                                
+                                            <input style="margin-top: 10px;" class="form-control" type="email" name="profile-email" id="profile-email" placeholder="Enter Email" required>
+                                <!--to input file-->
+                                           
+                                
+                                <div class="d-flex" >
+                                                <button type="submit" class="form-control ms-2 pass" >
+                                                    Reset
+                                                </button>
+                                
+                                        
+                                            </div>
+                                        </form>
+                                        <p></p>
+                                          <a class="read_more" href="{{url_for('views.home')}}"><img src="{{url_for('static',filename='images/btn_h.png')}}" alt="#"/> Home</a>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-12 col-lg-5">
+                                       <div class="text_img">
+                                          <figure><img src="{{url_for('static',filename='images/ban_img.png')}}" alt="#"/></figure>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                    
+                  </div>
+               </section>
+            </div>
+         </div>
+      </header>
+      <script src="{{url_for('static',filename='js/jquery.min.js')}}"></script>
+      <script src="{{url_for('static',filename='js/popper.min.js')}}"></script>
+      <script src="{{url_for('static',filename='js/bootstrap.bundle.min.js')}}"></script>
+      <script src="{{url_for('static',filename='js/jquery-3.0.0.min.js')}}"></script>
+        <!-- [ LOADER SCRIPT ]
+  =============================================================================================================================-->
+  <script src="{{url_for('static',filename='jquery-1.11.3.min.js')}}"></script>
+  <!-- [ COMMON SCRIPT ] -->
+   <script src="{{url_for('static',filename='common.js')}}"></script>
+<!-- [ /LOADER SCRIPT ]
+=============================================================================================================================-->
+      <!-- sidebar -->
+      <script src="{{url_for('static',filename='js/jquery.mCustomScrollbar.concat.min.js')}}"></script>
+      <script src="{{url_for('static',filename='js/custom.js')}}"></script>
+   </body>
+</html>

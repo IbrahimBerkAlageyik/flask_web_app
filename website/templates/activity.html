@@ -1,0 +1,936 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta name="description" content="">
+        <meta name="author" content="Tooplate">
+
+        <title>Wise Wallet - Activity Page</title>
+        <link rel="icon" href="{{url_for('static',filename='images/favicon.ico')}}" type="image/x-icon" />
+
+
+        <!-- CSS FILES -->      
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+        <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;700&display=swap" rel="stylesheet">
+
+        <link type="text/css" href="{{url_for ('static',filename='bootstrap.min.css')}}" rel="stylesheet">
+
+        <link type="text/css" href="{{url_for ('static',filename='bootstrap-icons.css')}}" rel="stylesheet">
+
+        <link type="text/css" href="{{url_for ('static',filename='apexcharts.css')}}" rel="stylesheet">
+
+        <link type="text/css" href="{{url_for ('static',filename='tooplate-mini-finance.css')}}" rel="stylesheet">
+
+        <link type="text/css" href="{{url_for ('static',filename='table.css')}}" rel="stylesheet">
+                   <!-- [ LOADERs ]
+================================================================================================================================-->	
+<div class="preloader">
+    <div class="loader theme_background_color">
+        <span></span>
+      
+    </div>
+</div>
+<!-- [ /PRELOADER ]
+=============================================================================================================================-->
+<style>
+    .dropdown-item:hover {
+        color: #ccc;
+    }
+
+    .dropdown-menu {
+        background-color: #fff; /* Set the desired background color */
+        opacity: 1; /* Set the desired opacity */
+    }
+</style>
+    </head>
+    
+    <body>
+      <!-- Loader -->
+<div class="loader-wrapper">
+    <div class="loader">
+        <img src="{{url_for('static',filename='images/loading.gif')}}" alt="Loading...">
+    </div>
+</div>
+<!-- End Loader -->
+        <header class="navbar sticky-top flex-md-nowrap">
+            <div class="col-md-3 col-lg-3 me-0 px-3 fs-6">
+                <a class="navbar-brand" href="{{url_for('views.home')}}">
+                    <i class="bi-box"></i>
+                    Wise Wallet
+                </a>
+            </div>
+
+            <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            
+
+            <div class="navbar-nav me-lg-2">
+                <div class="nav-item text-nowrap d-flex align-items-center">
+
+                    <div class="dropdown ps-3">
+                        <a class="nav-link dropdown-toggle text-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" onclick="updateDatabase(), reddotInvisible()">
+                            {%if new_notifs%}
+                            <img src= "{{url_for ('static',filename='bell.png')}}" class="profile-image img-fluid" alt="" style='padding-top:8px;'>
+                             <!-- <i class="bi-bell"></i>-->
+                             <span id="reddot" class="position-absolute start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
+                                <span class="visually-hidden">New alerts</span>
+                            </span>
+                            {%else%}
+                            <img src= "{{url_for ('static',filename='bell.png')}}" class="profile-image img-fluid" alt="" style='padding-top:8px;'>
+                            {%endif%}
+                        </a>
+
+                        <ul class="dropdown-menu notifications-block-wrap bg-white shadow" style="overflow: auto; max-height: 300px;">
+                            <small>Notifications</small>
+                            
+                            {%if not new_notifs and not old_notifs%}
+                                <li class="notifications-block border-bottom pb-2 mb-2">
+                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                        <div class="notifications-icon-wrap bg-info">
+                                            <i class="notifications-icon bi-check-circle-fill"></i>
+                                        </div>
+
+                                        <div>
+                                            <span>No Notifications.</span>
+
+                                            <p></p>
+                                        </div>
+                                    </a>
+                                </li>
+                            {%else%}
+
+                                {%for new_notif in new_notifs%}
+                                    {%if new_notif.type == 'positive'%}
+                                    <li class="notifications-block border-bottom pb-2 mb-2">
+                                        <a class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="notifications-icon-wrap bg-success">
+                                                <i class="notifications-icon bi-check-circle-fill"></i>
+                                            </div>
+
+                                            <div>
+                                                <span>{{new_notif.description}}</span>
+
+                                                <p>{{new_notif.date}}</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    {%else%}
+                                    <li class="notifications-block">
+                                        <a class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="notifications-icon-wrap bg-danger">
+                                                <i class="notifications-icon bi-question-circle"></i>
+                                            </div>
+        
+                                            <div>
+                                                <span>{{new_notif.description}}</span>
+
+                                                <p>{{new_notif.date}}</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    {%endif%}
+                                {%endfor%}
+
+                                {%for old_notif in old_notifs%}
+                                    {%if old_notif.type == 'positive'%}
+                                    <li class="notifications-block border-bottom pb-2 mb-2">
+                                        <a class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="notifications-icon-wrap bg-success">
+                                                <i class="notifications-icon bi-check-circle-fill"></i>
+                                            </div>
+
+                                            <div>
+                                                <span>{{old_notif.description}}</span>
+
+                                                <p>{{old_notif.date}}</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    {%else%}
+                                    <li class="notifications-block">
+                                        <a class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="notifications-icon-wrap bg-danger">
+                                                <i class="notifications-icon bi-question-circle"></i>
+                                            </div>
+
+                                            <div>
+                                                <span>{{old_notif.description}}</span>
+
+                                                <p>{{old_notif.date}}</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    {%endif%}
+                                {%endfor%}
+                            {%endif%}
+                            
+                        </ul>
+                    </div>
+
+                    <div class="dropdown ps-1">
+                        <a class="nav-link dropdown-toggle text-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src= "{{url_for ('static',filename='social-media.png')}}" class="profile-image img-fluid" alt="">
+                          <!--  <i class="bi-three-dots-vertical"></i>-->
+                        </a>
+                  
+                        <div class="dropdown-menu dropdown-menu-social bg-white shadow">
+                            <div class="container">
+                                <div class="row">
+                                    
+                                    <div class="col-lg-4 col-md-4 col-4">
+                                        <a class="dropdown-item text-center" href="#">
+                                            <img src="{{url_for ('static',filename='search.png')}}" class="profile-image img-fluid" alt="">
+                                            <span class="d-block">Google</span>
+                                        </a>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-4 col-4">
+                                        <a class="dropdown-item text-center" href="#">
+                                            <img src= "{{url_for ('static',filename='spotify.png')}}" class="profile-image img-fluid" alt="">
+                                          
+                                            <span class="d-block">Spotify</span>
+                                        </a>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-4 col-4">
+                                        <a class="dropdown-item text-center" href="#">
+                                            <img src="{{url_for ('static',filename='telegram.png')}}"  class="profile-image img-fluid" alt="">
+                                            <span class="d-block">Telegram</span>
+                                        </a>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-4 col-4">
+                                        <a class="dropdown-item text-center" href="#">
+                                            <img src="{{url_for ('static',filename='snapchat.png')}}" class="profile-image img-fluid" alt="">
+                                            <span class="d-block">Snapchat</span>
+                                        </a>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-4 col-4">
+                                        <a class="dropdown-item text-center" href="#">
+                                            <img src="{{url_for ('static',filename='tiktok.png')}}"  class="profile-image img-fluid" alt="">
+                                            <span class="d-block">Tiktok</span>
+                                        </a>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-4 col-4">
+                                        <a class="dropdown-item text-center" href="#">
+                                            <img src="{{url_for ('static',filename='youtube.png')}}"  class="profile-image img-fluid" alt="">
+                                            <span class="d-block">Youtube</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dropdown px-2">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="{{profile_picture_url}}" class="profile-image img-fluid" alt="">
+                        </a>
+                        <ul class="dropdown-menu bg-white shadow">
+                            <li>
+                                <div class="dropdown-menu-profile-thumb d-flex">
+                                    <img src="{{profile_picture_url}}" class="profile-image img-fluid me-3" alt="">
+
+                                    <div class="d-flex flex-column">
+                                        <small>{{user.first_name}}</small>
+                                        <a href="#">{{user.email}}</a>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="{{url_for('views.profile')}}">
+                                    <i class="bi-person me-2"></i>
+                                    Profile
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="{{url_for('views.settings')}}">
+                                    <i class="bi-gear me-2"></i>
+                                    Settings
+                                </a>
+                            </li>
+
+                            
+
+                            <li class="border-top mt-3 pt-2 mx-4">
+                                <a class="dropdown-item ms-0 me-0" href="{{url_for('auth.logout')}}">
+                                    <i class="bi-box-arrow-left me-2"></i>
+                                    Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="container-fluid">
+            <div class="row">
+                <nav id="sidebarMenu" class="col-md-3 col-lg-3 d-md-block sidebar collapse">
+                    <div class="position-sticky py-4 px-3 sidebar-sticky">
+                        <ul class="nav flex-column h-100">
+                            <li class="nav-item">
+                                <a class="nav-link " aria-current="page" href="{{url_for('views.overview')}}">
+                                    <i class="bi-house-fill me-2"></i>
+                                    Overview
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link active" href="{{url_for('views.transactions')}}">
+                                    <i class="bi-wallet me-2"></i>
+                                    Transactions
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{url_for('views.financialgoals')}}">
+                                    <i class="bi bi-bank me-2"></i>
+                                    Financial Goals
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{url_for('views.budget')}}">
+                                    <i class="bi bi-cash-stack me-2"></i>
+                                    Budgets
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{url_for('views.profile')}}">
+                                    <i class="bi-person me-2"></i>
+                                    Profile
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{url_for('views.settings')}}">
+                                    <i class="bi-gear me-2"></i>
+                                    Settings
+                                </a>
+                            </li>
+
+                            
+
+                          
+
+                            <li class="nav-item border-top mt-auto pt-2">
+                                <a class="nav-link" href="{{url_for('auth.logout')}}">
+                                    <i class="bi-box-arrow-left me-2"></i>
+                                    Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+
+                <main class="main-wrapper col-md-9 ms-sm-auto py-4 col-lg-9 px-md-4 border-start actv">
+                  
+                    <div class="row my-4">
+                        <div class="col-lg-7 col-12">
+                   
+                                
+
+                               <!-- <div class="custom-block-numbers d-flex align-items-center">
+                                    <span>****</span>
+                                    <span>****</span>
+                                    <span>****</span>
+                                    <p>2560</p>
+                                </div>
+                            -->
+                               
+
+                           
+
+                            <div class="custom-block bg-white" style="width:174%">
+                       <!--Table here-->
+                       {% with messages = get_flashed_messages(with_categories=true) %} {% if
+                        messages %} {% for category, message in messages %} {% if category ==
+                        'error' %}
+                        
+                        
+                        <div id="messageDiv" class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        
+                        {% else %}
+                        <div id="messageDiv" class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                
+                    {% endif %} {% endfor %} {% endif %} {% endwith %}
+                       <div class="row w-100 mx-auto justify-content-center mt-3" style="border: 1px solid #ccc; border-radius: 8px; background-color: #f8f9fa;">
+                        <h2 class="text-center mt-3">Record Transaction</h2>
+                        <hr class="w-75 mx-auto my-3"/>
+                        
+                        <form method="POST" class="w-100 p-3">
+                            <div class="row w-100 mx-auto justify-content-center">
+                                <div class="col-lg-3 mb-3">
+                                    <label for="target" class="form-label" style="color: #343a40;">Target</label>
+                                    <input type="text" class="form-control form-control-sm" id="addtransaction_target" name="addtransaction_target" style="border: 1px solid #ccc; border-radius: 5px;" required>
+                                </div>
+                                <div class="col-lg-3 mb-3">
+                                    <label for="amount" class="form-label" style="color: #343a40;">Amount</label>
+                                    <input  type="number" class="form-control form-control-sm" id="addtransaction_amount" name="addtransaction_amount" style="border: 1px solid #ccc; border-radius: 5px;" required pattern="^\d+$" title="Enter a number with optional decimal places" min="0">
+                                </div>
+                
+                                <div class="col-lg-3 mb-3" >
+                                    <label for="date" class="form-label" style="color: #343a40;">Rate</label>
+                                    <div class="input-group mb-3" style="opacity: 1;">
+                                        <input  type="text" class="form-control form-control-sm" id="addtransaction_rate" name="addtransaction_rate" pattern="Once|Weekly|Monthly|Yearly" style="border: 1px solid #ccc; border-radius: 5px;" required title="Must be either Once or Weekly or Monthly or Yearly">
+                                        <button class="btn btn-outline-secondary ml-1" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="border: 1px solid #ccc; border-radius: 0 5px 5px 0;">
+                                            <i class="bi bi-arrow-down"></i>
+                                        </button>
+                                        
+                                        <ul class="dropdown-menu dropdown-menu-end" style="width: 100%; opacity: 1; background-color: white;">
+                                            <li><a class="dropdown-item" href="#" onclick="document.getElementById('addtransaction_rate').value = 'Once'">Once</a></li>
+                                            <li><a class="dropdown-item" href="#" onclick="document.getElementById('addtransaction_rate').value = 'Weekly'">Weekly</a></li>
+                                            <li><a class="dropdown-item" href="#" onclick="document.getElementById('addtransaction_rate').value = 'Monthly'">Monthly</a></li>
+                                            <li><a class="dropdown-item" href="#" onclick="document.getElementById('addtransaction_rate').value = 'Yearly'">Yearly</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+
+                
+                                <div class="col-lg-3 mb-3">
+                                    <label for="date" class="form-label" style="color: #343a40;">Type</label>
+                                    <div class="input-group mb-3">
+                                        <input pattern="(Income|Expense)" type="text" class="form-control form-control-sm" id="addtransaction_type" name="addtransaction_type" style="border: 1px solid #ccc; border-radius: 5px;"  required title="Must be either Income or Expense">
+                                        <button class="btn btn-outline-secondary ml-1" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="border: 1px solid #ccc; border-radius: 0 5px 5px 0;">
+                                            <i class="bi bi-arrow-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end" style="width: 100%;">
+                                            <li><a class="dropdown-item" href="#" onclick="document.getElementById('addtransaction_type').value = 'Income'">Income</a></li>
+                                            <li><a class="dropdown-item" href="#" onclick="document.getElementById('addtransaction_type').value = 'Expense'">Expense</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 mb-3">
+                                    <label for="date" class="form-label" style="color: #343a40;">Date</label>
+                                    <input type="date" class="form-control form-control-sm" id="addtransaction_date" name="addtransaction_date" style="border: 1px solid #ccc; border-radius: 5px;" required>
+                                </div>
+                                
+                                <div class="col-lg-3 mb-3">
+                                    <label for="category" class="form-label" style="color: #343a40;">Category</label>
+                                    <div class="input-group mb-3">
+                                        <input  type="text" class="form-control form-control-sm"  id="addtransaction_category" name="addtransaction_category" style="border: 1px solid #ccc; border-radius: 5px;" required readonly pattern=".+" title="This field cannot be empty"> 
+                                        <button class="btn btn-outline-secondary ml-1"  type="button" data-bs-toggle="dropdown" aria-expanded="false" style="border: 1px solid #ccc; border-radius: 0 5px 5px 0;">
+                                            <i class="bi bi-arrow-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end" style="width: 100%; max-height: 150px; overflow-y: auto;">
+                
+                                            {% for category in categories  %}
+                                            <li><a class="dropdown-item" href="#" onclick="document.getElementById('addtransaction_category').value = '{{ category['name'] }}'">{{ category['name'] }}</a></li>
+                                            {% endfor %}
+                
+                                            
+                
+                                        </ul>
+                                    </div>
+                                </div>
+                
+                            </div>
+                            <hr class="w-75 mx-auto my-3"/>
+                            <div class="col-12 d-flex justify-content-center">
+                                <button type="submit" class="btn custom-btn custom-btn-bg-white mt-3" style="border-radius: 100px; width:200px; color:#fcfad4">Add</button>
+                            </div>
+                
+                        </form>
+                    </div>
+                
+                
+                
+                
+                    <hr class="w-100 mx-auto my-3"/>
+                
+                
+                    <div id="transactions" style="display: block; margin-top: 20px" >
+                
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="dropdown float-start">
+                                    <button class="btn secondary dropdown"  type="button" id="dropdownMenuButtonTransactions" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <h3><u>Transaction History</u></h3>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <li><a id="transactionsHistory"  class="dropdown-item" onclick="switch_visibility('transactions')">Transaction History</a></li>
+                                        <li><a id="regularHistory"  class="dropdown-item" onclick="switch_visibility('regular')">Regular Transactions</a></li>
+                                    </ul>
+                                </div>
+                
+                            </div>
+                        </div>
+                        
+                        {%if transactions%}
+                        <div class="row w-50 mx-left" style=" width: 50%; border: 1px solid #ccc; border-radius: 8px;">
+                            <div class="col-12 mt-3 mb-3" >
+                                <div class="form-group">
+                                    <input type="text" onkeyup="filterTable()" class="form-control" id="filterInput" placeholder="Search for Category or Target">
+                                  </div>
+                            </div> 
+                        </div>
+                        {%endif%}
+                
+                        <div id="transactionTable" class="col-12" style="overflow: auto; max-height: 600px; min-height: 600px;">
+                            {%if transactions%}
+                            {% for transaction in transactions %}
+                            <div id="{{'transaction' ~ transaction['id']}}" class="row w-100 mx-auto justify-content-center mt-3" style="border: 1px solid #ccc; border-radius: 8px; background-color: #f8f9fa;">
+                                <div class="col-4 mt-1" style="padding: 8px; border-radius: 8px 0 0 8px;">
+                                    <span id="Destination" style="display: block; width: 100%; border-radius: 8px;">Target: {{transaction["target"]}}</span>
+                                </div>
+                
+                                <div class="col-4 mt-1" style="padding: 8px; border-radius: 0 8px 8px 0;">
+                                    <span id="Amount" style="display: block; width: 100%; border-radius: 8px;">Amount: {{transaction["amount"]}}</span>
+                                </div>
+                
+                                <div class="col-4 mt-1" style="padding: 8px; border-radius: 0 8px 8px 0;">
+                                    <span id="Type" style="display: block; width: 100%; border-radius: 8px;">Type: {{transaction["transaction_type"]}}</span>
+                                </div>
+                                
+                                <div class="col-4 mb-1" style="padding: 8px; border-radius: 0 8px 8px 0;">
+                                    <span id="Date" style="display: block; width: 100%; border-radius: 8px;">Date: {{transaction["date"]}}</span>
+                                </div>
+                                
+                                <div class="col-4 mb-1" style="padding: 8px; border-radius: 0 8px 8px 0;">
+                                    <span id="Category" style="display: block; width: 100%; border-radius: 8px;">Category: {{transaction["category"]}}</span>
+                                </div>
+                
+                                
+                                <div class="col-4 mb-1 " style=" border-radius: 0 8px 8px 0; text-align: left;">
+                                    <div class="dropdown float-start" >
+                                        
+                                        <button class="btn custom-btn custom-btn-bg-white dropdown-toggle" style="width: auto;" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Actions
+                                        </button>
+                                        
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <li>
+                                                <a  style="display: block;" class="dropdown-item" onclick="getTransactionID(this)" href="#" >Delete</a>
+                                                <span style="display: none;">{{transaction["transaction_id"]}}</span>
+                
+                                            </li>
+
+                                            <li>
+                                                <a  style="display: block;" class="dropdown-item" onclick="getReceipt(this)" href="#" >See receipt</a>
+                                                <span style="display: none;">{{transaction["transaction_id"]}}</span>
+                
+                                            </li>
+                                            
+                
+                                            
+                                        </ul>
+                                    </div>
+                                </div>
+                            
+                            
+                            </div>
+                
+                            {% endfor %}
+                            {%else%}
+                                <div class="row w-100 mx-auto justify-content-between mt-3" style="border: 1px solid #ccc; border-radius: 8px; background-color: #f8f9fa;">
+                                    <h3 style="text-decoration: underline;" class="text-center mt-3">No Transactions Found!</h3>
+                                </div>
+                            {%endif%}
+                        </div>
+                    </div>
+                    
+                
+                    <div id="regularTransactions" style="display: none; margin-top: 20px">
+                
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="dropdown float-start">
+                                    <button class="btn secondary dropdown" type="button" id="dropdownMenuButtonRegular" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <h3><u>Regular Transactions</u></h3>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <li><a id="transactionsHistory2" class="dropdown-item" onclick="switch_visibility('transactions')">Transaction History</a></li>
+                                        <li><a id="regularHistory2" class="dropdown-item" onclick="switch_visibility('regular')">Regular Transactions</a></li>
+                                    </ul>
+                                </div>
+                
+                            </div>
+                        </div>
+                
+                        {%if regular_transactions%}
+                        <div class="row w-50 mx-left" style=" width: 50%; border: 1px solid #ccc; border-radius: 8px;">
+                            <div class="col-12 mt-3 mb-3" >
+                                <div class="form-group">
+                                    <input type="text" onkeyup="filterRegular()" class="form-control" id="regularInput" placeholder="Search for Category or Target">
+                                  </div>
+                            </div> 
+                        </div>
+                        {%endif%}
+                
+                        <div id="regularParentContainer" class="col-12" style="overflow: auto; max-height: 600px; min-height: 600px;">
+                            {%if regular_transactions%}
+                            {% for regular_transaction in regular_transactions %}
+                
+                            <div id="regularContainer" class="row w-100 mx-auto justify-content-between mt-3" style="border: 1px solid #ccc; border-radius: 8px; background-color: #f8f9fa;">
+                                
+                                
+                
+                
+                                <div class="col-3 mt-1 " style="padding: 8px; border-radius: 8px 0 0 8px;">
+                                    <span id="Destination" style="display: block; width: 100%; border-radius: 8px;">Target: {{regular_transaction["target"]}}</span>
+                                </div>
+                
+                                <div class="col-3 mt-1" style="padding: 8px; border-radius: 0 8px 8px 0;">
+                                    <span id="Amount" style="display: block; width: 100%; border-radius: 8px;">Amount:{{regular_transaction["amount"]}}</span>
+                                </div>
+                
+                                <div class="col-3 mt-1" style="padding: 8px; border-radius: 0 8px 8px 0;">
+                                    <span id="Type" style="display: block; width: 100%; border-radius: 8px;">Type: {{regular_transaction["type"]}}</span>
+                                </div>
+                
+                                <div class="col-3 mt-1" style="padding: 8px; border-radius: 0 8px 8px 0;">
+                                    <span id="start_Date" style="display: block; width: 100%; border-radius: 8px;">Start Date: {{regular_transaction["start_date"]}}</span>
+                                </div>
+                                
+                                <div class="col-3  mb-1" style="padding: 8px; border-radius: 0 8px 8px 0;">
+                                    <span id="next_date" style="display: block; width: 100%; border-radius: 8px;">Next Date: {{regular_transaction["next_date"]}}</span>
+                                </div>
+                                
+                                <div class="col-3  mb-1" style="padding: 8px; border-radius: 0 8px 8px 0;">
+                                    <span id="category" style="display: block; width: 100%; border-radius: 8px;">Category: {{regular_transaction["category"]}}</span>
+                                </div>
+                
+                                <div class="col-3 mb-1" style="padding: 8px; border-radius: 0 8px 8px 0;">
+                                    <span id="rate" style="display: block; width: 100%; border-radius: 8px;">Rate: {{regular_transaction["rate"]}}</span>
+                                </div>
+                
+                                
+                
+                
+                
+                                
+                                <div class="col-3  mb-1" style="padding: 8px; border-radius: 0 8px 8px 0; text-align: left;">
+                                    <div class="dropdown float-start">
+                                        <button class="btn custom-btn custom-btn-bg-white dropdown-toggle" style="width: auto;" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Actions
+                                        </button>
+                                        
+                                        
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <div id="regular_transaction_id_container + {{regular_transaction['id']}}" style="display: none;">{{regular_transaction["id"]}}</div>
+                                            <li>
+                                                <a style="display: block;" class="dropdown-item" href="#" onclick="getRegularTransactionID(this)">Delete</a>
+                                                
+                                                <span style="display: none;">{{regular_transaction["recurr_transactions_id"]}}</span>
+                                                
+                                            </li>
+                                            
+                                            <li><a  style="display: block;" class="dropdown-item" href="#">Edit</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            
+                            
+                            </div>
+                
+                            {% endfor %}
+                            {%else%}
+                            <div class="row w-100 mx-auto justify-content-between mt-3" style="border: 1px solid #ccc; border-radius: 8px; background-color: #f8f9fa;">
+                                <h3 style="text-decoration: underline;" class="text-center mt-3">No Regular Transactions Found!</h3>
+                            </div>
+                            
+                            {% endif %}
+                        </div>
+                    </div>
+                       
+                    
+                    
+                       
+                       
+
+
+                    </div>
+
+               
+                               
+            
+                       
+</div>
+                    <footer class="site-footer">
+                        <div class="container">
+                            <div class="row">
+                                
+                                <div class="col-lg-12 col-12" >
+                                    <p class="copyright-text" style="padding-top:100px">Copyright © Wise Wallet 2048 
+                                    - Design: <a rel="sponsored" href="#" target="_blank">CALVIN</a></p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </footer>
+                </main>
+
+            </div>
+        </div>
+
+        <!-- JAVASCRIPT FILES -->
+        <script src="{{url_for ('static',filename='jquery.min.js')}}"></script>
+        <script src="{{url_for ('static',filename='bootstrap.bundle.min.js')}}"></script>
+        <script src="{{url_for('static',filename='apexcharts.min.js')}}"></script>
+        <script src="{{url_for ('static',filename='custom.js')}}"></script>
+        <!-- [ LOADER SCRIPT ]
+  =============================================================================================================================-->
+  <script src="{{url_for('static',filename='jquery-1.11.3.min.js')}}"></script>
+  <!-- [ COMMON SCRIPT ] -->
+   <script src="{{url_for('static',filename='common.js')}}"></script>
+<!-- [ /LOADER SCRIPT ]
+=================================================================== ==========================================================-->
+<script>
+    function filterRegular() {
+
+        var input = document.getElementById("regularInput");
+        var filter = input && input.value.toUpperCase();
+        var transactionTable = document.getElementById("regularParentContainer");
+        var transactions = transactionTable && transactionTable.children;
+        
+        if (!input || !transactionTable || !transactions) {
+            return;
+        }
+
+        for (var i = 0; i < transactions.length; i++) {
+            var attributes = transactions[i].children;
+
+            var target = attributes && attributes[0] && attributes[0].textContent.trim();
+            var category = attributes && attributes[5] && attributes[5].textContent.trim();
+
+            target    = target && target.substring(7, target.length);
+            category  = category && category.substring(9, category.length);
+
+            if (target || category) {
+
+                if ((target && target.toUpperCase().indexOf(filter) > -1) || (category && category.toUpperCase().indexOf(filter) > -1)) {
+                    transactions[i].classList.remove("d-none");
+                } else {
+                    transactions[i].classList.add("d-none");
+                }
+
+            }
+        }
+    }
+
+    function filterTable() {
+
+        var input = document.getElementById("filterInput");
+        var filter = input && input.value.toUpperCase();
+        var transactionTable = document.getElementById("transactionTable");
+        var transactions = transactionTable && transactionTable.children;
+        
+        if (!input || !transactionTable || !transactions) {
+            return;
+        }
+
+        for (var i = 0; i < transactions.length; i++) {
+            var attributes = transactions[i].children;
+
+            var target = attributes && attributes[0] && attributes[0].textContent.trim();
+            var category = attributes && attributes[4] && attributes[4].textContent.trim();
+
+            target    = target && target.substring(7, target.length);
+            category  = category && category.substring(9, category.length);
+
+            if (target || category) {
+
+                if ((target && target.toUpperCase().indexOf(filter) > -1) || (category && category.toUpperCase().indexOf(filter) > -1)) {
+                    transactions[i].classList.remove("d-none");
+                } else {
+                    transactions[i].classList.add("d-none");
+                }
+
+            }
+        }
+    }
+
+    function switch_visibility(block) {
+        transactions = document.getElementById("transactions");
+        regular = document.getElementById("regularTransactions");
+
+        if (block == "transactions") {
+            transactions.style.display = "block";
+            regular.style.display = "none";
+        }
+        else if (block == "regular") {
+            transactions.style.display = "none";
+            regular.style.display = "block";
+        }
+    }
+
+
+</script>
+
+<script>
+    function getTransactionID(element){
+        var liItem = element.parentElement;
+        var spanElement = liItem.querySelector("span");
+        console.log(spanElement.textContent);
+
+        deleteTransaction(spanElement.textContent);
+
+        transaction = liItem.parentElement.parentElement.parentElement.parentElement
+        parent_transaction = transaction.parentElement
+        parent_transaction.removeChild(transaction);
+        
+    }
+
+    function deleteTransaction(id){
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/delete-transaction?id="+id, true);
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    // If the request is successful, extract the message from the response
+                    customAlert(xhr.responseText);
+                } else {
+                    // Handle errors if any
+                    console.error('Error:', xhr.status);
+                }
+            }
+        };
+    
+        xhr.send();
+    }
+
+    
+</script>
+<script>
+    function updateDatabase() {
+        // Define the data you want to send to the Flask route
+        const data = "old" // Define the data you want to send to the Flask route
+
+        // Make an AJAX request to the Flask route
+        fetch('/update_notif_state', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Do something with the response data
+            console.log(data)
+        })
+        .catch(error => {
+            // Handle any errors that occur
+            console.error(error)
+        })
+
+    }
+
+    function reddotInvisible(){
+        document.getElementById("reddot").style.display = "none";
+    }
+</script>
+
+
+
+<script>
+
+    function getReceipt(element){
+        var liItem = element.parentElement;
+        var spanElement = liItem.querySelector("span");
+        var id = spanElement.textContent;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/get-receipt?id="+id, true);
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    var pdfUrl = xhr.responseText;
+                    window.open(pdfUrl, '_blank');
+                } else {
+                    // Handle errors if any
+                    console.error('Error:', xhr.status);
+                }
+            }
+        };
+    
+        xhr.send();
+    }
+    
+    function getRegularTransactionID(element){
+        var liItem = element.parentElement;
+        var spanElement = liItem.querySelector("span");
+        console.log(spanElement.textContent);
+
+        deleteRegularTransaction(spanElement.textContent);
+
+        regularTransaction = liItem.parentElement.parentElement.parentElement.parentElement
+        parent_regularTransaction = regularTransaction.parentElement
+        parent_regularTransaction.removeChild(regularTransaction);
+        
+    }
+    
+    function deleteRegularTransaction(id){
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/delete-regular-transaction?id="+id, true);
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    // If the request is successful, extract the message from the response
+                    customAlert(xhr.responseText);
+                } else {
+                    // Handle errors if any
+                    console.error('Error:', xhr.status);
+                }
+            }
+        };
+    
+        xhr.send();
+    }
+
+    function customAlert(message) {
+        var customAlertBox = document.getElementById("customAlert");
+        var alertMessage = document.getElementById("customAlertMessage");
+        
+        alertMessage.textContent = message;
+        customAlertBox.style.display = "block";
+      }
+      
+      function closeCustomAlert() {
+        var customAlertBox = document.getElementById("customAlert");
+        customAlertBox.style.display = "none";
+      }
+    
+
+    
+</script>
+        <script>
+            setTimeout(function(){
+                document.getElementById('loaderWrapper').style.display = 'flex';
+            }, 200000); // Delay the loader for 2 seconds (2000 milliseconds)
+            
+            window.addEventListener('load', function() {
+                document.querySelector('.loader-wrapper').style.display = 'none';
+            });
+        </script>
+        <!--
+        <script>// After 5 seconds, hide the loader
+            setTimeout(function(){
+                document.getElementById('loader').style.display = 'none';
+            }, 5000);</script>-->
+        <script src="{{url_for ('static',filename='table.js')}}"></script>
+    </body>
+</html>

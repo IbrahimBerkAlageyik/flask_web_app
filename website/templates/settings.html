@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Wise Wallet-Settings</title>
+        <link rel="icon" href="{{url_for('static',filename='images/favicon.ico')}}" type="image/x-icon" />
+
+
+        <!-- CSS FILES -->      
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+        <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;700&display=swap" rel="stylesheet">
+
+        <link type="text/css" href="{{url_for ('static',filename='bootstrap.min.css')}}" rel="stylesheet">
+
+        <link type="text/css" href="{{url_for ('static',filename='bootstrap-icons.css')}}" rel="stylesheet">
+
+        <link type="text/css" href="{{url_for ('static',filename='tooplate-mini-finance.css')}}" rel="stylesheet">
+                   <!-- [ LOADERs ]
+================================================================================================================================-->	
+<div class="preloader">
+    <div class="loader theme_background_color">
+        <span></span>
+      
+    </div>
+</div>
+<!-- [ /PRELOADER ]
+=============================================================================================================================-->
+<style>
+    .dropdown-item:hover {
+        color: #ccc;
+    }
+
+    .dropdown-menu {
+        background-color: #fff; /* Set the desired background color */
+        opacity: 1; /* Set the desired opacity */
+    }
+</style>
+    </head>
+    
+    <body>
+    </head>
+    
+    <body>
+        <header class="navbar sticky-top flex-md-nowrap">
+            <div class="col-md-3 col-lg-3 me-0 px-3 fs-6">
+                <a class="navbar-brand" href="{{url_for('views.overview')}}">
+                    <i class="bi-box"></i>
+                    Wise Wallet
+                </a>
+            </div>
+
+            <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            
+
+            <div class="navbar-nav me-lg-2">
+                <div class="nav-item text-nowrap d-flex align-items-center">
+                    <div class="dropdown ps-3">
+                        <a class="nav-link dropdown-toggle text-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" onclick="updateDatabase(), reddotInvisible()">
+                            {%if new_notifs%}
+                            <img src= "{{url_for ('static',filename='bell.png')}}" class="profile-image img-fluid" alt="" style='padding-top:8px;'>
+                             <!-- <i class="bi-bell"></i>-->
+                             <span id="reddot" class="position-absolute start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
+                                <span class="visually-hidden">New alerts</span>
+                            </span>
+                            {%else%}
+                            <img src= "{{url_for ('static',filename='bell.png')}}" class="profile-image img-fluid" alt="" style='padding-top:8px;'>
+                            {%endif%}
+                        </a>
+
+                        <ul class="dropdown-menu notifications-block-wrap bg-white shadow" style="overflow: auto; max-height: 300px;">
+                            <small>Notifications</small>
+
+                            {%if not new_notifs and not old_notifs%}
+                                <li class="notifications-block border-bottom pb-2 mb-2">
+                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                        <div class="notifications-icon-wrap bg-info">
+                                            <i class="notifications-icon bi-check-circle-fill"></i>
+                                        </div>
+
+                                        <div>
+                                            <span>No Notifications.</span>
+
+                                            <p></p>
+                                        </div>
+                                    </a>
+                                </li>
+                            {%else%}
+
+                                {%for new_notif in new_notifs%}
+                                    {%if new_notif.type == 'positive'%}
+                                    <li class="notifications-block border-bottom pb-2 mb-2">
+                                        <a class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="notifications-icon-wrap bg-success">
+                                                <i class="notifications-icon bi-check-circle-fill"></i>
+                                            </div>
+
+                                            <div>
+                                                <span>{{new_notif.description}}</span>
+
+                                                <p>{{new_notif.date}}</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    {%else%}
+                                    <li class="notifications-block">
+                                        <a class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="notifications-icon-wrap bg-danger">
+                                                <i class="notifications-icon bi-question-circle"></i>
+                                            </div>
+        
+                                            <div>
+                                                <span>{{new_notif.description}}</span>
+
+                                                <p>{{new_notif.date}}</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    {%endif%}
+                                {%endfor%}
+
+                                {%for old_notif in old_notifs%}
+                                    {%if old_notif.type == 'positive'%}
+                                    <li class="notifications-block border-bottom pb-2 mb-2">
+                                        <a class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="notifications-icon-wrap bg-success">
+                                                <i class="notifications-icon bi-check-circle-fill"></i>
+                                            </div>
+
+                                            <div>
+                                                <span>{{old_notif.description}}</span>
+
+                                                <p>{{old_notif.date}}</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    {%else%}
+                                    <li class="notifications-block">
+                                        <a class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="notifications-icon-wrap bg-danger">
+                                                <i class="notifications-icon bi-question-circle"></i>
+                                            </div>
+
+                                            <div>
+                                                <span>{{old_notif.description}}</span>
+
+                                                <p>{{old_notif.date}}</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    {%endif%}
+                                {%endfor%}
+                            {%endif%}
+                        </ul>
+                    </div>
+
+                    <div class="dropdown ps-1">
+                        <a class="nav-link dropdown-toggle text-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src= "{{url_for ('static',filename='social-media.png')}}" class="profile-image img-fluid" alt="">
+                          <!--  <i class="bi-three-dots-vertical"></i>-->
+                        </a>
+                  
+                        <div class="dropdown-menu dropdown-menu-social bg-white shadow">
+                            <div class="container">
+                                <div class="row">
+                                    
+                                    <div class="col-lg-4 col-md-4 col-4">
+                                        <a class="dropdown-item text-center" href="#">
+                                            <img src="{{url_for ('static',filename='search.png')}}" class="profile-image img-fluid" alt="">
+                                            <span class="d-block">Google</span>
+                                        </a>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-4 col-4">
+                                        <a class="dropdown-item text-center" href="#">
+                                            <img src= "{{url_for ('static',filename='spotify.png')}}" class="profile-image img-fluid" alt="">
+                                          
+                                            <span class="d-block">Spotify</span>
+                                        </a>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-4 col-4">
+                                        <a class="dropdown-item text-center" href="#">
+                                            <img src="{{url_for ('static',filename='telegram.png')}}"  class="profile-image img-fluid" alt="">
+                                            <span class="d-block">Telegram</span>
+                                        </a>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-4 col-4">
+                                        <a class="dropdown-item text-center" href="#">
+                                            <img src="{{url_for ('static',filename='snapchat.png')}}" class="profile-image img-fluid" alt="">
+                                            <span class="d-block">Snapchat</span>
+                                        </a>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-4 col-4">
+                                        <a class="dropdown-item text-center" href="#">
+                                            <img src="{{url_for ('static',filename='tiktok.png')}}"  class="profile-image img-fluid" alt="">
+                                            <span class="d-block">Tiktok</span>
+                                        </a>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-4 col-4">
+                                        <a class="dropdown-item text-center" href="#">
+                                            <img src="{{url_for ('static',filename='youtube.png')}}"  class="profile-image img-fluid" alt="">
+                                            <span class="d-block">Youtube</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dropdown px-2">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="{{profile_picture_url}}" class="profile-image img-fluid" alt="">
+                        </a>
+                        <ul class="dropdown-menu bg-white shadow">
+                            <li>
+                                <div class="dropdown-menu-profile-thumb d-flex">
+                                    <img src="{{profile_picture_url}}" class="profile-image img-fluid me-3" alt="">
+
+                                    <div class="d-flex flex-column">
+                                        <small>{{user.first_name}}</small>
+                                        <a href="#">{{user.email}}</a>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="{{url_for('views.profile')}}">
+                                    <i class="bi-person me-2"></i>
+                                    Profile
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="{{url_for('views.settings')}}">
+                                    <i class="bi-gear me-2"></i>
+                                    Settings
+                                </a>
+                            </li>
+
+                            
+
+                            <li class="border-top mt-3 pt-2 mx-4">
+                                <a class="dropdown-item ms-0 me-0" href="{{url_for('auth.logout')}}">
+                                    <i class="bi-box-arrow-left me-2"></i>
+                                    Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="container-fluid">
+            <div class="row">
+                <nav id="sidebarMenu" class="col-md-3 col-lg-3 d-md-block sidebar collapse">
+                    <div class="position-sticky py-4 px-3 sidebar-sticky">
+                        <ul class="nav flex-column h-100">
+                            <li class="nav-item">
+                                <a class="nav-link " aria-current="page" href="{{url_for('views.overview')}}">
+                                    <i class="bi-house-fill me-2"></i>
+                                    Overview
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{url_for('views.transactions')}}">
+                                    <i class="bi-wallet me-2"></i>
+                                    Transactions
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{url_for('views.financialgoals')}}">
+                                    <i class="bi bi-bank me-2"></i>
+                                    Financial Goals
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{url_for('views.budget')}}">
+                                    <i class="bi bi-cash-stack me-2"></i>
+                                    Budgets
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{url_for('views.profile')}}">
+                                    <i class="bi-person me-2"></i>
+                                    Profile
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link active" href="{{url_for('views.settings')}}">
+                                    <i class="bi-gear me-2"></i>
+                                    Settings
+                                </a>
+                            </li>
+
+                            
+
+                          
+
+                            <li class="nav-item border-top mt-auto pt-2">
+                                <a class="nav-link" href="{{url_for('auth.logout')}}">
+                                    <i class="bi-box-arrow-left me-2"></i>
+                                    Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+
+
+                <main class="main-wrapper col-md-9 ms-sm-auto py-4 col-lg-9 px-md-4 border-start actv">
+
+                    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+                        messages %} {% for category, message in messages %} {% if category ==
+                        'error' %}
+                        
+                        
+                        <div id="messageDiv" class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        
+                        {% else %}
+                        <div id="messageDiv" class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                
+                    {% endif %} {% endfor %} {% endif %} {% endwith %}
+
+                    <div class="title-group mb-3">
+                        <h1 class="h2 mb-0" style="color:white">Settings</h1>
+                    </div>
+
+                    <div class="row my-4">
+                        <div class="col-lg-7 col-12">
+                            <div class="custom-block "style='background:#ececec;'>
+                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" style='background:#ececec;'id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="true">Profile</button>
+                                    </li>
+
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" style='background:#ececec;'id="password-tab" data-bs-toggle="tab" data-bs-target="#password-tab-pane" type="button" role="tab" aria-controls="password-tab-pane" aria-selected="false">Password</button>
+                                    </li>
+
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" style='background:#ececec;'id="request-tab" data-bs-toggle="tab" data-bs-target="#request-tab-pane" type="button" role="tab" aria-controls="request-tab-pane" aria-selected="false">Request</button>
+                                    </li>
+
+                                    
+                                </ul>
+
+                                <div class="tab-content" id="myTabContent" style='background:#ececec'>
+                                    <div class="tab-pane fade show active" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                                        <h6 class="mb-4">User Profile</h6>
+
+                                        <form class="custom-form profile-form" method="post" role="form" enctype="multipart/form-data">
+                                            <input class="form-control" type="text" name="userName" id="userName" placeholder="Your Name">
+
+                                            <input class="form-control" type="email" name="userEmail" id="userEmail" placeholder="YourEmail@example.com">
+
+                                            <div class="input-group mb-1">
+                                                <img src="{{profile_picture_url}}" class="profile-image img-fluid" alt="">
+
+                                                <input type="file" class="form-control bg-white" id="userImage" name="userImage">
+                                            </div>
+
+                                            <div class="d-flex">
+                                                
+
+                                                <button type="submit" class="form-control ms-2">
+                                                    Update
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    <div class="tab-pane fade" id="password-tab-pane" role="tabpanel" aria-labelledby="password-tab" tabindex="0">
+                                        <h6 class="mb-4">Password</h6>
+
+                                        <form class="custom-form password-form" action="/passwordChange" method="post" role="form">
+                                            <input type="password" name="currentPassword" id="currentPassword"  class="form-control" placeholder="Current Password" required="">
+
+                                            <input type="password" name="newPassword" id="newPassword"  class="form-control" placeholder="New Password" required="">
+
+                                            <input type="password" name="confirmPassword" id="confirmPassword"  class="form-control" placeholder="Confirm Password" required="">
+
+                                            <div class="d-flex">
+                                                
+
+                                                <button type="submit" class="form-control ms-2">
+                                                    Update Password
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    <div class="tab-pane fade" id="request-tab-pane" role="tabpanel" aria-labelledby="request-tab" tabindex="0">
+                                        <h6 class="mb-4">Request</h6>
+
+                                        <form class="custom-form request-form" action="/sendRequest" method="post" role="form">
+                                            <input type="text" name="subject" id="subject"  class="form-control" placeholder="Subject" required="">
+
+                                            <textarea name="message" id="message" class="form-control" placeholder="Message" required="" style="height: 100px; resize: none"></textarea>
+                                            
+                                            <div class="d-flex">
+                                                
+
+                                                <button type="submit" class="form-control ms-2">
+                                                    Submit Request
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    
+
+
+                                    
+
+                                    
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-5 col-12">
+                            <div class="custom-block custom-block-contact"style='background:#ececec;'>
+                                <h6 class="mb-4">Still can’t find what you are looking for?</h6>
+
+                                <p>
+                                    <strong>Call us:</strong>
+                                    <a href="tel: 305-240-9671" class="ms-2">
+                                        (90) 
+                                        305-240-9671
+                                    </a>
+                                </p>
+
+                                <a href="#" class="btn custom-btn custom-btn-bg-white mt-3">
+                                    Chat with us
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col-9 d-flex justify-content-center" style="height: 100%;" id="finGoalsCol">
+                            <div id="finGoalsContainer" class="container w-100 mt-3 mb-3" style="border: 1px solid #ccc; border-radius: 8px; padding: 16px; background-color: #f8f9fa;">
+                                <h3 class="mt-3 mb-3">Manage Your Categories</h3>
+                    
+                                <div class="row mx-auto mb-3 mt-3">
+                                    <form action="/createCategory" method="post" id="createCategory">
+                                        <div class="col-12 justfiy-content-start mb-3 mt-3">
+                                            <span class="mb-3">Add Category</span>
+                                            <input type="text" class="form-control mt-2" id="category_name" name="category_name" aria-describedby="emailHelp" placeholder="Enter category name">
+                                        </div>
+                    
+                                        <div class="col-12 mb-3">
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control form-control-sm" id="category_type" name="category_type" style="border: 1px solid #ccc; border-radius: 5px;" readonly placeholder="Select Category Type">
+                                                <button class="btn btn-outline-secondary ml-2" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="border: 1px solid #ccc; border-radius: 0 5px 5px 0;">
+                                                    <i class="bi bi-arrow-down"></i>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end" style="width: 100%;">
+                                                    <li><a class="dropdown-item" href="#" onclick="document.getElementById('category_type').value = 'Goal'">Goal</a></li>
+                                                    <li><a class="dropdown-item" href="#" onclick="document.getElementById('category_type').value = 'Main'">Main</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                    
+                                        <div class="col-12 d-flex justify-content-center">
+                                            <button type="submit" class="btn custom-btn custom-btn-bg-white mt-3" style="border-radius: 100px; width:200px; color:#fcfad4">Add</button>
+                                        </div>
+                                    </form>
+                                </div>
+                    
+                                <div class="row mb-3">
+                                    <div class="col-6">
+                                        <h3>Main Categories</h3>
+                                    </div>
+                                    <div class="col-6">
+                                        <h3>Goal Categories</h3>
+                                    </div>
+                                </div>
+                                
+                    
+                                <div class="row mb-3 ">
+                    
+                                    <div class="col-6" style="overflow: auto; max-height: 400px; border-right: 1px solid #ccc">
+                                        {%if main_categories%}
+                                        {%for main_category in main_categories%}
+                                        <div class="row mx-auto mb-3">
+                                           
+                                            <div class="col-6 justfiy-content-start">
+                                                <span>- {{main_category['name']}}</span>
+                                            </div>
+                    
+                                            <div class="col-6 d-flex justify-content-end">
+                                                <button class="btn btn-outline-secondary" onclick="deleteCategory(this)">Delete</button>
+                                                <span style="display: none;">{{main_category['category_id']}}</span>
+                    
+                                            </div>
+                                            
+                                        </div>
+                                        {%endfor%}
+                                        {%else%}
+                                        <span>No main categories</span>
+                                        {%endif%}
+                                    </div>
+                    
+                                    <div class="col-6" style="overflow: auto; max-height: 400px;">
+                                        <!-- for loop comes here -->
+                                        {%if goal_categories%}
+                                        {%for goal_categorie in goal_categories%}
+                                        <div class="row mx-auto mb-3">
+                                           
+                                            <div class="col-6 justfiy-content-start">
+                                                <span>- {{goal_categorie['name']}}</span>
+                                            </div>
+                    
+                                            <div class="col-6 d-flex justify-content-end">
+                                                <button class="btn btn-outline-secondary" onclick="deleteCategory(this)">Delete</button>
+                                                <span style="display: none;">{{goal_categorie['category_id']}}</span>
+                                            </div>
+                                            
+                                        </div>
+                                        {%endfor%}
+                                        {%else%}
+                                        <span>No main categories</span>
+                                        {%endif%}
+                                    </div>
+                                    
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <footer class="site-footer">
+                        <div class="container">
+                            <div class="row">
+                                
+                                <div class="col-lg-12 col-12">
+                                    <p class="copyright-text"style='padding-top:300px;'>Copyright © Wise Wallet 2048 
+                                    - Design: <a rel="sponsored" href="#" target="_blank">CALVIN</a></p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </footer>
+                </main>
+
+            </div>
+        </div>
+
+        
+<script>
+    function deleteCategory(element){
+        var divElement = element.parentElement;
+        var divtoDelete = divElement.parentElement
+        var spanElement = divElement.querySelector("span");
+        id = spanElement.innerHTML;
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/delete-category?id="+id, true);
+        divtoDelete.remove();
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    // If the request is successful, extract the message from the response
+                    customAlert(xhr.responseText);
+                    
+                } else {
+                    // Handle errors if any
+                    customAlert(xhr.responseText);
+                    console.error('Error:', xhr.status);
+                }
+            }
+        };
+    
+        xhr.send();
+
+        
+
+    }
+
+    function customAlert(message) {
+        var customAlertBox = document.getElementById("customAlert");
+        var alertMessage = document.getElementById("customAlertMessage");
+        
+        alertMessage.textContent = message;
+        customAlertBox.style.display = "block";
+      }
+      
+      function closeCustomAlert() {
+        var customAlertBox = document.getElementById("customAlert");
+        customAlertBox.style.display = "none";
+      }
+</script>
+
+<script>
+    function updateDatabase() {
+        // Define the data you want to send to the Flask route
+        const data = "old" // Define the data you want to send to the Flask route
+
+        // Make an AJAX request to the Flask route
+        fetch('/update_notif_state', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Do something with the response data
+            console.log(data)
+        })
+        .catch(error => {
+            // Handle any errors that occur
+            console.error(error)
+        })
+
+    }
+    function reddotInvisible(){
+        document.getElementById("reddot").style.display = "none";
+    }
+</script>
+
+
+
+
+        <!-- JAVASCRIPT FILES -->
+        <script src="{{url_for ('static',filename='jquery.min.js')}}"></script>
+        <script src="{{url_for ('static',filename='bootstrap.bundle.min.js')}}"></script>
+        <script src="{{url_for ('static',filename='custom.js')}}"></script>
+        <!-- [ LOADER SCRIPT ]
+  =============================================================================================================================-->
+  <script src="{{url_for('static',filename='jquery-1.11.3.min.js')}}"></script>
+  <!-- [ COMMON SCRIPT ] -->
+   <script src="{{url_for('static',filename='common.js')}}"></script>
+<!-- [ /LOADER SCRIPT ]
+=============================================================================================================================-->
+        <script>
+            setTimeout(function(){
+                document.getElementById('loaderWrapper').style.display = 'flex';
+            }, 200000); // Delay the loader for 2 seconds (2000 milliseconds)
+            
+            window.addEventListener('load', function() {
+                document.querySelector('.loader-wrapper').style.display = 'none';
+            });
+        </script>
+        <!--
+        <script>// After 5 seconds, hide the loader
+            setTimeout(function(){
+                document.getElementById('loader').style.display = 'none';
+            }, 5000);</script>-->
+
+    </body>
+</html>

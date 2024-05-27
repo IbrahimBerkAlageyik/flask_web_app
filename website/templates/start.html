@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <!-- basic -->
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <!-- mobile metas -->
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+      <!-- site metas -->
+      <title>WISE WALLET</title>
+      <meta name="keywords" content="">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <!-- bootstrap css -->
+      <link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap.min.css')}}">
+      <!-- style css -->
+      <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+      <!-- Responsive-->
+      <link rel="stylesheet" href="{{url_for('static',filename='css/responsive.css')}}">
+      <!-- fevicon -->
+      <link rel="icon" href="{{url_for('static',filename='images/favicon.ico')}}" type="image/x-icon" />
+      <!-- Scrollbar Custom CSS -->
+      <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
+      <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+      
+     
+   </head>
+   <!-- body -->
+   <body >
+      <!-- header -->
+                   <!-- [ LOADERs ]
+================================================================================================================================-->	
+<div class="preloader">
+    <div class="loader theme_background_color">
+        <span></span>
+      
+    </div>
+</div>
+<!-- [ /PRELOADER ]
+=============================================================================================================================-->
+      <header>
+         <!-- header inner -->
+         <div class="header">
+            <div class="white_bg">
+               <div class="container-fluid">
+                  <div class="row align-items-center">
+                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
+                        <div class="full">
+                           <div class="center-desk">
+                              
+                                 <a href="{{url_for('views.home')}}" ><img src="{{url_for('static',filename='images/logo.jpg')}}" alt="#" style="max-width: 100%; height: auto;" /></a>
+                           
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9" >
+                        <nav class="navigation navbar navbar-expand-md navbar-dark ">
+                           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+                           <span class="navbar-toggler-icon"></span>
+                           </button>
+                           <div class="collapse navbar-collapse" id="navbarsExample04">
+                              <ul class="navbar-nav mr-auto">
+                                 <li class="nav-item active">
+                                    <a class="nav-link" href="{{url_for('views.home')}}"> Home  </a>
+                                 </li>
+                                 <li class="nav-item">
+                                    <a class="nav-link" href="#about">About</a>
+                                 </li>
+                                 <li class="nav-item">
+                                    <a class="nav-link" href="#services">Services </a>
+                                 </li>
+                                 <li class="nav-item">
+                                    <a class="nav-link" href="#contact">Contact Us</a>
+                                 </li>
+                                 <li class="nav-item d_none le_co">
+                                    <a class="nav-link" href="{{url_for('auth.login')}}"><i  class="fa fa-user" aria-hidden="true"></i> Login</a>
+                                 </li>
+                                 <li class="nav-item d_none le_co">
+                                    <a class="nav-link" href="#"><i  class="fa fa-search" aria-hidden="true"></i></a>
+                                 </li>
+                              </ul>
+                           </div>
+                        </nav>
+                     </div>
+                  </div>
+               </div>
+               <!-- end header inner -->
+               <!-- end header -->
+               <!-- banner -->
+               <section style="padding-top:0px">
+                  <div id="banner1" class="carousel slide" data-ride="carousel">
+                     <ol class="carousel-indicators">
+                        <li data-target="#banner1" data-slide-to="0" class="active"></li>
+                        <li data-target="#banner1" data-slide-to="1"></li>
+                        <li data-target="#banner1" data-slide-to="2"></li>
+                     </ol>
+                     <div class="carousel-inner">
+                        <div class="carousel-item active">
+                           <div class="container-fluid">
+                              <div class="carousel-caption">
+                                 <div class="row">
+                                    <div class="col-md-12 col-lg-7">
+                                       <div class="text-bg">
+                                          <span>Progress & Success</span>
+                                          <h1>c u r r e n c y</h1>
+                                          <p>Welcome to your personal financial management system that will allow you keep track and record your finances </p>
+                                          <a class="read_more" href="#services"><img src="{{url_for('static',filename='images/btn_h.png')}}" alt="#"/> Discover Now</a>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-12 col-lg-5">
+                                       <div class="text_img">
+                                          <figure><img src="{{url_for('static',filename='images/ban_img.png')}}" alt="#"/></figure>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="carousel-item">
+                           <div class="container-fluid">
+                              <div class="carousel-caption">
+                                 <div class="row">
+                                    <div class="col-md-12 col-lg-7">
+                                       <div class="text-bg">
+                                          <span>Progress & Success</span>
+                                          <h1>c u r r e n c y</h1>
+                                          <p>Become part of our large well organised community and track your finances<BR/>   </p>
+                                          <a class="read_more" href="{{url_for('auth.sign_up')}}"><img src="{{url_for('static',filename='images/btn_h.png')}}" alt="#"/> Join us</a>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-12 col-lg-5">
+                                       <div class="text_img">
+                                          <figure><img src="{{url_for('static',filename='images/ban_img.png')}}" alt="#"/></figure>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="carousel-item">
+                           <div class="container-fluid">
+                              <div class="carousel-caption">
+                                 <div class="row">
+                                    <div class="col-md-12 col-lg-7">
+                                       <div class="text-bg">
+                                          <span>Progress & Success</span>
+                                          <h1>c u r r e n c y</h1>
+                                          <p>Get in touch with our team about any questions you may have about our services. </p>
+                                          <a class="read_more" href="#contact"><img src="{{url_for('static',filename='images/btn_h.png')}}" alt="#"/>Contact Us</a>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-12 col-lg-5">
+                                       <div class="text_img">
+                                          <figure><img src="{{url_for('static',filename='images/ban_img.png')}}" alt="#"/></figure>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <a class="carousel-control-prev" href="#banner1" role="button" data-slide="prev">
+                     <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                     </a>
+                     <a class="carousel-control-next" href="#banner1" role="button" data-slide="next">
+                     <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                     </a>
+                  </div>
+               </section>
+            </div>
+         </div>
+      </header>
+      <!-- end banner -->
+      <!-- about section -->
+      <div class="about"id='about'>
+         <div class="container">
+            <div class="row d_flex">
+               <div class="col-md-12 col-lg-5">
+                  <div class="about_img">
+                     <figure><img src="{{url_for('static',filename='images/about.png')}}" alt="#"/></figure>
+                  </div>
+               </div>
+               <div class="col-md-12 col-lg-7">
+                  <div class="titlepage">
+                     <h2> <span class="yellow">ABOUT US</span><br>Welcome TO WISE WALLET</h2>
+                     <p>Our system guides you to managing all your finances by tracking all your incomes as well as expenses as per your will<br/>
+                        We will provide you with a full automated system updating you on all your transactions.
+                    </p>
+                     <a class="read_more" href="#">Read More</a>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- about section -->
+      <!-- services section --> 
+      <div class="services"id='services'>
+         <div class="container">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="titlepage">
+                     <h2> <span class="yellow">Services</span><br>A QUICK INSITE INTO OUR SERVICES</h2>
+                  </div>
+               </div>
+               <div class="col-md-3 col-sm-6">
+                  <div id="ho_color" class="services_main">
+                     <i><img src="{{url_for('static',filename='images/services_icon1.png')}}" alt="#"/></i>
+                     <img class="ho" src="{{url_for('static',filename='images/services_icon1h.png')}}" alt="#"/>
+                     <h3>Safe & Secure</h3>
+                     <p>Secure transaction<br/>
+                        All our records are highly classified and available only to each user
+                     </p>
+                  </div>
+               </div>
+               <div class="col-md-3 col-sm-6">
+                  <div id="ho_color" class="services_main">
+                     <i><img src="{{url_for('static',filename='images/services_icon2.png')}}" alt="#"/></i>
+                     <img class="ho" src="{{url_for('static',filename='images/services_icon2h.png')}}" alt="#"/>
+                     <h3>Mobile Apps</h3>
+                     <p>Our application is perfectly suited to be used<br/>
+                        via smart phone and laptop
+                     </p>
+                  </div>
+               </div>
+               <div class="col-md-3 col-sm-6">
+                  <div id="ho_color" class="services_main">
+                     <i><img src="{{url_for('static',filename='images/services_icon3.png')}}" alt="#"/></i>
+                     <img class="ho" src="{{url_for('static',filename='images/services_icon3h.png')}}" alt="#"/>
+                     <h3>Financial Tracking</h3>
+                     <p> Get access to our large and robust database
+                         to save and track all your finaces.
+                     </p>
+                  </div>
+               </div>
+               <div class="col-md-3 col-sm-6">
+                  <div id="ho_color" class="services_main">
+                     <i><img src="{{url_for('static',filename='images/services_icon4.png')}}" alt="#"/></i>
+                     <img class="ho" src="{{url_for('static',filename='images/services_icon4h.png')}}" alt="#"/>
+                     <h3>Experts Support</h3>
+                     <p>Get access to professional financial consultation
+                        on all your financial needs.
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- end services section -->
+      <!-- testimonial -->
+      <div  class="testimonial" id="testimonial">
+        <div class="container">
+           <div class="row">
+              <div class="col-md-12 ">
+                 <div class="titlepage">
+                    <h2> <span class="yellow">Testimonial</span><br>Have a look at what our clients have to say</h2>
+                 </div>
+              </div>
+           </div>
+        </div>
+        <div id="testimoni" class="carousel slide testimonial_Carousel " data-ride="carousel">
+           <ol class="carousel-indicators">
+              <li data-target="#testimoni" data-slide-to="0" class="active"></li>
+              <li data-target="#testimoni" data-slide-to="1"></li>
+              <li data-target="#testimoni" data-slide-to="2"></li>
+              <li data-target="#testimoni" data-slide-to="3"></li>
+           </ol>
+           <div class="carousel-inner">
+              <div class="carousel-item active">
+                 <div class="container">
+                    <div class="carousel-caption ">
+                       <div class="row">
+                          <div class="col-md-10 offset-md-1">
+                             <div class="test_box">
+                                <i><img src="{{url_for('static',filename='images/test.png')}}"></i>
+                                <h3>FRANK WILLy</h3><br/>
+                                <p> WISE  WALLET  has  allowed  me  properly  invest  my  finances  properly  by  allowing  me  save  my  money </p>
+                             </div>
+                          </div>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+              <div class="carousel-item">
+                 <div class="container">
+                    <div class="carousel-caption">
+                       <div class="row">
+                          <div class="col-md-10 offset-md-1">
+                             <div class="test_box">
+                                <i><img src="{{url_for('static',filename='images/test.png')}}"></i>
+                                <h3>JASON BORNE</h3><br/>
+                                <p>With WISE WALLET i have been about to manage my finances and make better financial decisions by tracking my expenses and getitng rid of what was unnecessary</p>
+                             </div>
+                          </div>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+              <div class="carousel-item">
+                 <div class="container">
+                    <div class="carousel-caption">
+                       <div class="row">
+                          <div class="col-md-10 offset-md-1">
+                             <div class="test_box">
+                                <i><img src="{{url_for('static',filename='images/test.png')}}"></i>
+                                <h3>SANDRA BOLLOK</h3><br/>
+                                <p>Thanks to WISE WALLET i have raised my incomes by months throught the financial advice the professionals at WISE WALLET gave me. I am greatly indebted to them  </p>
+                             </div>
+                          </div>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+              <div class="carousel-item">
+                 <div class="container">
+                    <div class="carousel-caption">
+                       <div class="row">
+                          <div class="col-md-10 offset-md-1">
+                             <div class="test_box">
+                                <i><img src="{{url_for('static',filename='images/test.png')}}"></i>
+                                <h3>THIO WALLCOT</h3><br/>
+                                <p>WISE WALLET is definatelty the best thing to happen to me . By tracking my finances through there system it has completely saved me soo much time in organising my budget. I love them </p>
+                             </div>
+                          </div>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+           <a class="carousel-control-prev" href="#testimoni" role="button" data-slide="prev">
+           <i class="fa fa-chevron-left" aria-hidden="true"></i>
+           </a>
+           <a class="carousel-control-next" href="#testimoni" role="button" data-slide="next">
+           <i class="fa fa-chevron-right" aria-hidden="true"></i>
+           </a>
+        </div>
+     </div>
+     <!-- end testimonial section -->
+      <!-- Subscribe section --> 
+      <div class="subscribe" id="newsletter">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-8 offset-md-2">
+                  <div class="subscribe_main">
+                     <h3>Subscribe to our newsletter</h3>
+                     <p>Please feal free to subscribe to our newslater and get updates on any and all chnages to our services</p>
+                     <form class="news_form">
+                        <input class="enter_form" placeholder="Enter your email" type="text" name="Enter your email">
+                        <button class="subscribe_btn">subscribe now</button>
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- end Subscribe section -->
+
+      <!-- comments  section -->
+      <div class="contact" id="contact">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="titlepage">
+                     <h2> <span class="yellow">Contact Us</span><br> Request a call back</h2>
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-10 offset-md-1">
+                  <form action="/startemail" method="post" id="contac_form" class="contac_form">
+                     <div class="row">
+                        <div class="col-md-12 ">
+                           <input class="contac_control" placeholder="Name" id="emailName" type="type" name="emailName"> 
+                        </div>
+                        <div class="col-md-12">
+                           <input class="contac_control" placeholder="Phone Number" id="emailPhone" type="type" name="emailPhone">                          
+                        </div>
+                        <div class="col-md-12">
+                           <input class="contac_control" placeholder="Email Address" id="emailEmail" type="type" name="emailEmail">                          
+                        </div>
+                        <div class="col-md-12">
+                           <textarea class="textarea" placeholder="Message" type="type" id="emailMessage" name="emailMessage" >Message </textarea>
+                        </div>
+                        <div class="col-md-12">
+                           <button class="send_btn">Send</button>
+                        </div>
+                     </div>
+                  </form>
+               </div>
+            </div>
+            <div class="row" id="map">
+               <div class="col-md-12">
+                  <div class="map">
+                     <figure><img src="{{url_for('static',filename='images/map-(1).png')}}" alt="#"/></figure>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- end contact  section -->
+      <!--  footer -->
+      <footer >
+         <div class="footer">
+            <div class="container">
+               <div class="row">     
+                  <div class="col-lg-3 col-md-6 col-sm-6">
+                     <a class="logo2" href="{{url_for('views.home')}}"><img src="{{url_for('static',filename='images/footer-logo.png')}}" style="height:150px;width:1500px" alt="#"/></a>
+                     <div class="follow">
+                        <p></p>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-md-6 col-sm-6">
+                     <h3>Quick link</h3>
+                     <ul class="link_icon">
+                        <li class="active"> <a href="{{url_for('views.home')}}"> <i class="fa fa-chevron-right" aria-hidden="{{url_for('views.home')}}"></i>Home</a></li>
+                        <li> <a href="#about"> <i class="fa fa-chevron-right" aria-hidden="blog"></i>About </a></li>
+                        <li> <a href="#testimonial"> <i class="fa fa-chevron-right" aria-hidden="contact"></i>Testimonial</a></li>
+                        <li> <a href="#newsletter"> <i class="fa fa-chevron-right" aria-hidden="contact"></i>Subscribe</a></li>
+                     </ul>
+                  </div>
+                  <div class="col-lg-3 col-md-6 col-sm-6">
+                     <h3>Instagram </h3>
+                     <div class="follow">
+                        <p>Please follow us on social media and join our family</p>
+                        <ul class="social_icon">
+                           <li> <a href="#"><i class="fa fa-facebook-f"></i></a></li>
+                           <li> <a href="#"><i class="fa fa-twitter"></i></a></li>
+                           <li> <a href="#">   <i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                           <li> <a href="#"><i class="fa fa-instagram"></i></a></li>
+                        </ul>
+                     </div>
+                  </div>
+                  <div class="col-lg-3 col-md-6 col-sm-6">
+                     <h3>Contact us</h3>
+                     <ul class="location_icon">
+                        <li><a href="#map"><i class="fa fa-map-marker" aria-hidden="true"></i></a>Check and see if we are in your location<br>
+                        </li>
+                        <li><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i></a>calvin@gmail.com</li>
+                        <li><a href="#"><i class="fa fa-volume-control-phone" aria-hidden="true"></i></a>+90 (542) (884) (4590)</li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="copyright">
+               <div class="container">
+                  <div class="row">
+                     <div class="col-md-10 offset-md-1">
+                        <p>Copyright 2024 All Right Reserved By<a href="#"> WISE WALLET</a></p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </footer>
+      <!-- end footer -->
+      <!-- Javascript files-->
+      <script src="{{url_for('static',filename='js/jquery.min.js')}}"></script>
+      <script src="{{url_for('static',filename='js/popper.min.js')}}"></script>
+      <script src="{{url_for('static',filename='js/bootstrap.bundle.min.js')}}"></script>
+      <script src="{{url_for('static',filename='js/jquery-3.0.0.min.js')}}"></script>
+      <!-- sidebar -->
+      <script src="{{url_for('static',filename='js/jquery.mCustomScrollbar.concat.min.js')}}"></script>
+      <script src="{{url_for('static',filename='js/custom.js')}}"></script>
+        <!-- [ LOADER SCRIPT ]
+  =============================================================================================================================-->
+  <script src="{{url_for('static',filename='jquery-1.11.3.min.js')}}"></script>
+  <!-- [ COMMON SCRIPT ] -->
+   <script src="{{url_for('static',filename='common.js')}}"></script>
+<!-- [ /LOADER SCRIPT ]
+=============================================================================================================================-->
+   </body>
+</html>
